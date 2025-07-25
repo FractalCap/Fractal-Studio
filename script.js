@@ -2038,4 +2038,29 @@ document.addEventListener('DOMContentLoaded', () => {
             setupInteractiveSections();
         }, 250);
     });
+// --- LÓGICA DEL BOTÓN DE PANTALLA COMPLETA PARA VIDEOS EN MÓVIL ---
+    function setupFullscreenButtons() {
+        const fullscreenButtons = document.querySelectorAll('.fullscreen-btn');
+
+        fullscreenButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.stopPropagation(); // Evita que otros eventos de clic se disparen
+                const wrapper = button.parentElement;
+                const video = wrapper.querySelector('video');
+
+                if (video) {
+                    if (video.requestFullscreen) {
+                        video.requestFullscreen();
+                    } else if (video.webkitRequestFullscreen) { /* Safari */
+                        video.webkitRequestFullscreen();
+                    } else if (video.msRequestFullscreen) { /* IE11 */
+                        video.msRequestFullscreen();
+                    }
+                }
+            });
+        });
+    }
+    
+    // Llamar a la función después de que todo el DOM se cargue
+    setupFullscreenButtons();
 });
